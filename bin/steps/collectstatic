@@ -13,8 +13,11 @@ if [ ! "$DISABLE_COLLECTSTATIC" ] && [ -f "$MANAGE_FILE" ]; then
     set +e
 
     echo "-----> Preparing static assets"
+    echo "PROJ4_LIBRARY_PATH=${PROJ4_LIBRARY_PATH}" | indent
+    echo "GEOS_LIBRARY_PATH=${GEOS_LIBRARY_PATH}" | indent
+    echo "GDAL_LIBRARY_PATH=${GDAL_LIBRARY_PATH}" | indent
     # Check if collectstatic is configured properly.
-    python $MANAGE_FILE collectstatic --dry-run --noinput &> /dev/null && RUN_COLLECTSTATIC=true
+    python $MANAGE_FILE collectstatic --dry-run --noinput && RUN_COLLECTSTATIC=true
 
     # Compile assets if collectstatic appears to be kosher.
     if [ "$RUN_COLLECTSTATIC" ]; then
